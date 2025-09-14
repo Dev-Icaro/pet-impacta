@@ -1,8 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { APP_CONFIG } from "@/utils/constants";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -82,19 +89,11 @@ export default function Home() {
               <div className="space-y-4">
                 <div>
                   <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="seu@email.com"
-                  />
+                  <Input id="email" type="email" placeholder="seu@email.com" />
                 </div>
                 <div>
                   <Label htmlFor="password">Senha</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                  />
+                  <Input id="password" type="password" placeholder="••••••••" />
                 </div>
                 <Button className="w-full">Entrar</Button>
               </div>
@@ -102,9 +101,17 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 space-y-4">
+          <div className="flex justify-center gap-4">
+            <Link href="/pet">
+              <Button size="lg" className="flex items-center gap-2">
+                <span>🐾</span>
+                Gerenciar Pets
+              </Button>
+            </Link>
+          </div>
           <p className="text-gray-500 dark:text-gray-400">
-            Versão {APP_CONFIG.version} - Pronto para desenvolvimento! 🎉
+            Versão {APP_CONFIG.version} - Pronto para desenvolvimento!
           </p>
         </div>
       </div>
