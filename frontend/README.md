@@ -67,6 +67,7 @@ O projeto suporta modo escuro nativamente através do Tailwind CSS. Use as class
 ## 📱 Responsividade
 
 Todos os componentes são responsivos usando as classes do Tailwind CSS:
+
 - `sm:` - Small screens (640px+)
 - `md:` - Medium screens (768px+)
 - `lg:` - Large screens (1024px+)
@@ -79,7 +80,7 @@ Todos os componentes são responsivos usando as classes do Tailwind CSS:
 Crie um arquivo `.env.local` na raiz do projeto:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_BACKEND_URL=http://localhost:3001
 ```
 
 ### Configuração do shadcn/ui

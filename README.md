@@ -246,7 +246,6 @@ ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
 
 ```env
 # API Configuration
-NEXT_PUBLIC_API_URL=http://localhost:3001
 NEXT_PUBLIC_BACKEND_URL=http://localhost:3001
 INTERNAL_BACKEND_URL=http://nginx:80
 ```
