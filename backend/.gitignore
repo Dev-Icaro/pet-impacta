@@ -149,3 +149,7 @@ compose.dev.yaml
 
 #tsdocs
 backend/docs/typedocs
+
+# Git commit template
+.gitmessage
+.gitconfig.local
