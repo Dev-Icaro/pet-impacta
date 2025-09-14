@@ -1,10 +1,32 @@
 import express from 'express';
+import cors from 'cors';
 import petRoutes from './routes/pet.routes';
 import { testConnection, closePool } from './config/database';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.APP_PORT || 3000;
 
+// Configuração do CORS
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'];
+
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // Permitir requisições sem origin (ex: mobile apps, Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn(`CORS: Origin não permitida: ${origin}`);
+      callback(new Error(`Origin ${origin} não permitida pelo CORS`));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -54,6 +76,7 @@ process.on('SIGTERM', async () => {
 app.listen(PORT, async () => {
   console.log(`Servidor rodando na porta ${PORT}`);
   console.log(`Ambiente: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Origens permitidas: ${allowedOrigins.join(', ')}`);
   console.log(`Health check: http://localhost:${PORT}/health`);
   console.log(`API Pet: http://localhost:${PORT}/api/pet`);
 
