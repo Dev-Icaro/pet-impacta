@@ -5,8 +5,8 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "start": "node build/server.js",
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "start": "node --env-file=.env.production build/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --env-file=.env.development src/server.ts",
     "build": "babel src --extensions \".js,.ts\" --out-dir build --copy-files",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
@@ -47,7 +47,6 @@
     "typescript-eslint": "^8.3.0"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
     "express": "^4.19.2"
   }
 }
