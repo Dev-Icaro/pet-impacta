@@ -1,9 +1,0 @@
-[commit]
-    template = .gitmessage
-
-[core]
-    editor = code --wait
-
-[alias]
-    cp = commit --template
-    commit-pt = commit --template
