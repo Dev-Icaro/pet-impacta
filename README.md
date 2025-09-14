@@ -2,8 +2,14 @@
 
 Sistema completo de gerenciamento de pets desenvolvido com Next.js, Node.js, Express, TypeScript e PostgreSQL.
 
+## 📊 Board do Projeto
+
+**Acompanhe o progresso e gerencie as tarefas do projeto:**
+- [📋 GitHub Project Board](https://github.com/users/Dev-Icaro/projects/2/views/1)
+
 ## 📋 Índice
 
+- [Board do Projeto](#-board-do-projeto)
 - [Visão Geral](#-visão-geral)
 - [Tecnologias](#-tecnologias)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
