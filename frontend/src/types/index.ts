@@ -26,3 +26,51 @@ export interface PaginatedResponse<T> {
     totalPages: number;
   };
 }
+
+// Tipos para Pet
+export interface Pet {
+  id: string;
+  name: string;
+  species: string;
+  breed: string;
+  age: number;
+  ownerName: string;
+  ownerPhone: string;
+  ownerEmail: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreatePetDTO {
+  name: string;
+  species: string;
+  breed: string;
+  age: number;
+  ownerName: string;
+  ownerPhone: string;
+  ownerEmail: string;
+}
+
+export interface UpdatePetDTO {
+  name?: string;
+  species?: string;
+  breed?: string;
+  age?: number;
+  ownerName?: string;
+  ownerPhone?: string;
+  ownerEmail?: string;
+}
+
+export interface PetApiResponse {
+  success: boolean;
+  message: string;
+  data?: Pet;
+  total?: number;
+}
+
+export interface PetListApiResponse {
+  success: boolean;
+  message: string;
+  data?: Pet[];
+  total?: number;
+}
