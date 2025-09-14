@@ -314,25 +314,6 @@ docker-compose -f docker-compose.prod.yml up -d
 
 - `GET /health` - Status do servidor e banco
 
-## 📊 Estrutura de Dados
-
-### Pet
-
-```typescript
-interface Pet {
-  id: string; // UUID
-  name: string; // Nome do pet
-  species: string; // Espécie (cachorro, gato, etc.)
-  breed: string; // Raça
-  age: number; // Idade em anos
-  ownerName: string; // Nome do proprietário
-  ownerPhone: string; // Telefone do proprietário
-  ownerEmail: string; // Email do proprietário
-  createdAt: string; // Data de criação
-  updatedAt: string; // Data de atualização
-}
-```
-
 ## 🧪 Scripts Disponíveis
 
 ### Backend
@@ -353,37 +334,5 @@ npm run build        # Build de produção
 npm start            # Executa versão de produção
 npm run lint         # Verifica código
 ```
-
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-### Padrões de Commit
-
-Utilizamos Conventional Commits em português:
-
-- `feat: adiciona nova funcionalidade`
-- `fix: corrige bug`
-- `refactor: refatora código`
-- `chore: atualiza dependências`
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 👥 Equipe
-
-- **Desenvolvimento**: Equipe Pet Impacta
-- **Instituição**: Faculdade Impacta
-
-## 📞 Suporte
-
-Para suporte, entre em contato através dos canais oficiais da Faculdade Impacta.
-
----
 
 **Pet Impacta** - Cuidando dos seus pets com tecnologia! 🐾
