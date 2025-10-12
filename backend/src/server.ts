@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import petRoutes from './routes/pet.routes';
+import veterinarianRoutes from './routes/veterinarian.routes';
 import { testConnection, closePool } from './config/database';
 
 const app = express();
@@ -50,6 +51,7 @@ app.get('/health', async (req, res) => {
 });
 
 app.use('/api/pet', petRoutes);
+app.use('/api/veterinarian', veterinarianRoutes);
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Erro não tratado:', err);
@@ -79,6 +81,7 @@ app.listen(PORT, async () => {
   console.log(`Origens permitidas: ${allowedOrigins.join(', ')}`);
   console.log(`Health check: http://localhost:${PORT}/health`);
   console.log(`API Pet: http://localhost:${PORT}/api/pet`);
+  console.log(`API Veterinarian: http://localhost:${PORT}/api/veterinarian`);
 
   // Testar conexão com banco de dados
   await testConnection();
