@@ -74,3 +74,42 @@ export interface PetListApiResponse {
   data?: Pet[];
   total?: number;
 }
+
+// Tipos para Veterinário
+export interface Veterinarian {
+  id: string;
+  name: string;
+  licenseNumber: string;
+  phone?: string;
+  email?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateVeterinarianDTO {
+  name: string;
+  licenseNumber: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface UpdateVeterinarianDTO {
+  name?: string;
+  licenseNumber?: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface VeterinarianApiResponse {
+  success: boolean;
+  message: string;
+  data?: Veterinarian;
+  total?: number;
+}
+
+export interface VeterinarianListApiResponse {
+  success: boolean;
+  message: string;
+  data?: Veterinarian[];
+  total?: number;
+}

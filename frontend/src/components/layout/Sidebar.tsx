@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   PawPrint,
+  Stethoscope,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -30,6 +31,11 @@ const navigationItems = [
     title: "Pets",
     href: "/pet",
     icon: Heart,
+  },
+  {
+    title: "Veterinários",
+    href: "/veterinarian",
+    icon: Stethoscope,
   },
   {
     title: "Configurações",
