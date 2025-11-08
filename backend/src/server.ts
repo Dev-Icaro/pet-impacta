@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import petRoutes from './routes/pet.routes';
 import veterinarianRoutes from './routes/veterinarian.routes';
+import serviceRoutes from './routes/service.routes';
 import { testConnection, closePool } from './config/database';
 
 const app = express();
@@ -52,6 +53,7 @@ app.get('/health', async (req, res) => {
 
 app.use('/api/pet', petRoutes);
 app.use('/api/veterinarian', veterinarianRoutes);
+app.use('/api/service', serviceRoutes);
 
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Erro não tratado:', err);
@@ -82,6 +84,7 @@ app.listen(PORT, async () => {
   console.log(`Health check: http://localhost:${PORT}/health`);
   console.log(`API Pet: http://localhost:${PORT}/api/pet`);
   console.log(`API Veterinarian: http://localhost:${PORT}/api/veterinarian`);
+  console.log(`API Service: http://localhost:${PORT}/api/service`);
 
   // Testar conexão com banco de dados
   await testConnection();
