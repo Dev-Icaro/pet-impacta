@@ -113,3 +113,39 @@ export interface VeterinarianListApiResponse {
   data?: Veterinarian[];
   total?: number;
 }
+
+// Tipos para Serviço
+export interface Service {
+  id: string;
+  name: string;
+  description?: string;
+  price: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateServiceDTO {
+  name: string;
+  description?: string;
+  price: number;
+}
+
+export interface UpdateServiceDTO {
+  name?: string;
+  description?: string;
+  price?: number;
+}
+
+export interface ServiceApiResponse {
+  success: boolean;
+  message: string;
+  data?: Service;
+  total?: number;
+}
+
+export interface ServiceListApiResponse {
+  success: boolean;
+  message: string;
+  data?: Service[];
+  total?: number;
+}
