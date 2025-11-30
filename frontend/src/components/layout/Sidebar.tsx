@@ -14,6 +14,7 @@ import {
   PawPrint,
   Stethoscope,
   Briefcase,
+  Calendar,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -42,6 +43,11 @@ const navigationItems = [
     title: "Serviços",
     href: "/service",
     icon: Briefcase,
+  },
+  {
+    title: "Agendamentos",
+    href: "/appointment",
+    icon: Calendar,
   },
   {
     title: "Configurações",

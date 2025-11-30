@@ -149,3 +149,49 @@ export interface ServiceListApiResponse {
   data?: Service[];
   total?: number;
 }
+
+// Tipos para Agendamento
+export interface Appointment {
+  id: string;
+  petId: string;
+  serviceId: string;
+  veterinarianId: string;
+  appointmentDate: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+  petName?: string;
+  serviceName?: string;
+  veterinarianName?: string;
+  servicePrice?: number;
+}
+
+export interface CreateAppointmentDTO {
+  petId: string;
+  serviceId: string;
+  veterinarianId: string;
+  appointmentDate: string;
+  notes?: string;
+}
+
+export interface UpdateAppointmentDTO {
+  petId?: string;
+  serviceId?: string;
+  veterinarianId?: string;
+  appointmentDate?: string;
+  notes?: string;
+}
+
+export interface AppointmentApiResponse {
+  success: boolean;
+  message: string;
+  data?: Appointment;
+  total?: number;
+}
+
+export interface AppointmentListApiResponse {
+  success: boolean;
+  message: string;
+  data?: Appointment[];
+  total?: number;
+}
