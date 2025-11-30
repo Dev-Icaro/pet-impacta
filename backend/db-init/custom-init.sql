@@ -36,7 +36,7 @@ CREATE TABLE appointments (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     pet_id UUID NOT NULL,
     service_id UUID NOT NULL,
-    veterinarian_id UUID,
+    veterinarian_id UUID NOT NULL,
     appointment_date TIMESTAMP NOT NULL,
     notes TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT now(),
@@ -44,5 +44,5 @@ CREATE TABLE appointments (
 
     CONSTRAINT fk_pet FOREIGN KEY (pet_id) REFERENCES pets (id) ON DELETE CASCADE,
     CONSTRAINT fk_service FOREIGN KEY (service_id) REFERENCES services (id) ON DELETE CASCADE,
-    CONSTRAINT fk_veterinarian FOREIGN KEY (veterinarian_id) REFERENCES veterinarians (id) ON DELETE SET NULL
+    CONSTRAINT fk_veterinarian FOREIGN KEY (veterinarian_id) REFERENCES veterinarians (id) ON DELETE CASCADE
 );
