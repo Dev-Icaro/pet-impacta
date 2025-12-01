@@ -11,6 +11,7 @@ Sistema completo de gerenciamento de pets desenvolvido com Next.js, Node.js, Exp
 ## 📋 Índice
 
 - [Board do Projeto](#-board-do-projeto)
+- [Documentação](#-documentação)
 - [Visão Geral](#-visão-geral)
 - [Tecnologias](#-tecnologias)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
@@ -23,6 +24,70 @@ Sistema completo de gerenciamento de pets desenvolvido com Next.js, Node.js, Exp
 - [API Endpoints](#-api-endpoints)
 - [Estrutura de Dados](#-estrutura-de-dados)
 - [Contribuição](#-contribuição)
+
+## 📚 Documentação
+
+A documentação completa do projeto está organizada em diagramas UML para facilitar o entendimento da arquitetura e funcionalidades:
+
+### 🏗️ Diagrama de Classes (Backend)
+
+Localização: [`backend/docs/backend-classes.puml`](./backend/docs/backend-classes.puml)
+
+Documentação completa da arquitetura do backend incluindo:
+
+- **Models**: Entidades de domínio (Pet, Veterinarian, Service, Appointment)
+- **Controllers**: Camada de controle HTTP
+- **Repositories**: Camada de acesso a dados
+- **DTOs**: Data Transfer Objects para validação
+- **Mappers**: Conversão entre formatos (snake_case ↔ camelCase)
+
+**Como visualizar:**
+
+- VS Code: Instale a extensão "PlantUML" e pressione `Alt + D`
+- Online: [PlantUML Web Server](http://www.plantuml.com/plantuml/uml/)
+- Local: `npm install -g node-plantuml && plantuml backend-classes.puml`
+
+### 📋 Diagramas de Casos de Uso
+
+Localização: [`docs/use-cases/`](./docs/use-cases/)
+
+Diagramas de casos de uso por módulo:
+
+- **[`pet-use-cases.puml`](./docs/use-cases/pet-use-cases.puml)** - Gerenciamento de Pets
+
+  - Cadastrar, Listar, Consultar, Atualizar e Deletar Pets
+  - Validações de dados
+
+- **[`veterinarians-use-cases.puml`](./docs/use-cases/veterinarians-use-cases.puml)** - Gerenciamento de Veterinários
+
+  - Cadastrar, Listar, Consultar, Atualizar e Deletar Veterinários
+  - Validação de CRMV
+
+- **[`services-use-cases.puml`](./docs/use-cases/services-use-cases.puml)** - Gerenciamento de Serviços
+
+  - Cadastrar, Listar, Consultar, Atualizar e Deletar Serviços
+  - Cálculo de preços
+
+- **[`appointments-use-cases.puml`](./docs/use-cases/appointments-use-cases.puml)** - Gerenciamento de Agendamentos
+  - Criar, Listar, Consultar, Atualizar e Cancelar Agendamentos
+  - Validações de disponibilidade e datas futuras
+  - Relacionamentos com Pets, Serviços e Veterinários
+
+**Atores do Sistema:**
+
+- **Atendente**: Gerencia pets, agendamentos e visualiza informações
+- **Administrador**: Gerencia veterinários e serviços
+- **Veterinário**: Visualiza agendamentos e consultas
+- **Sistema**: Realiza validações automáticas
+
+### 🔄 Atualização da Documentação
+
+Para gerar/atualizar o diagrama de classes do backend:
+
+```bash
+cd backend
+npm run uml:backend
+```
 
 ## 🎯 Visão Geral
 
