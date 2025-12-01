@@ -1,0 +1,112 @@
+@startuml Casos de Uso - Módulo de Agendamentos
+
+!define RECTANGLE class
+
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam usecaseBackgroundColor #FCE4EC
+skinparam usecaseBorderColor #880E4F
+skinparam actorBackgroundColor #FFF3E0
+skinparam actorBorderColor #E65100
+
+title Diagrama de Casos de Uso - Gerenciamento de Agendamentos
+
+left to right direction
+
+' Atores
+actor "Atendente" as atendente
+actor "Veterinário" as veterinario
+actor "Sistema" as sistema
+
+' Pacote do módulo
+package "Módulo de Agendamentos" {
+    usecase "Criar Agendamento" as UC1
+    usecase "Listar Agendamentos" as UC2
+    usecase "Consultar Agendamento" as UC3
+    usecase "Atualizar Agendamento" as UC4
+    usecase "Cancelar Agendamento" as UC5
+    
+    ' Casos de uso relacionados
+    usecase "Selecionar Pet" as UC6
+    usecase "Selecionar Serviço" as UC7
+    usecase "Selecionar Veterinário" as UC8
+    usecase "Definir Data/Hora" as UC9
+    usecase "Validar Disponibilidade" as UC10
+    usecase "Validar Data Futura" as UC11
+    usecase "Adicionar Observações" as UC12
+    usecase "Confirmar Agendamento" as UC13
+}
+
+' Relacionamentos com Atendente
+atendente --> UC1
+atendente --> UC2
+atendente --> UC3
+atendente --> UC4
+atendente --> UC5
+
+' Relacionamentos com Veterinário
+veterinario --> UC2
+veterinario --> UC3
+
+' Relacionamentos de inclusão (include) - Criar Agendamento
+UC1 ..> UC6 : <<include>>
+UC1 ..> UC7 : <<include>>
+UC1 ..> UC8 : <<include>>
+UC1 ..> UC9 : <<include>>
+UC1 ..> UC10 : <<include>>
+UC1 ..> UC11 : <<include>>
+
+' Relacionamentos de extensão (extend)
+UC1 ..> UC12 : <<extend>>
+UC4 ..> UC12 : <<extend>>
+
+' Validações do sistema
+UC9 ..> UC11 : <<include>>
+UC1 ..> UC13 : <<include>>
+
+' Relacionamento com Sistema
+sistema --> UC10
+sistema --> UC11
+sistema --> UC13
+
+note right of UC1
+  <b>Fluxo de criação:</b>
+  1. Selecionar Pet cadastrado
+  2. Selecionar Serviço disponível
+  3. Selecionar Veterinário
+  4. Definir data/hora futura
+  5. Adicionar observações (opcional)
+  6. Confirmar agendamento
+end note
+
+note bottom of UC10
+  Verifica:
+  - Pet existe
+  - Serviço existe
+  - Veterinário existe
+  - Não há conflito de horário
+end note
+
+note bottom of UC11
+  Data deve ser:
+  - Válida
+  - Futura (> data atual)
+end note
+
+note right of UC5
+  Cancelamento registra:
+  - Data do cancelamento
+  - Motivo (opcional)
+end note
+
+note bottom of UC2
+  Filtros disponíveis:
+  - Por data
+  - Por pet
+  - Por veterinário
+  - Por status (próximo/passado)
+end note
+
+@enduml
+

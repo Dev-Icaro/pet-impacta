@@ -1,0 +1,77 @@
+@startuml Casos de Uso - Módulo de Veterinários
+
+!define RECTANGLE class
+
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam usecaseBackgroundColor #E8F5E9
+skinparam usecaseBorderColor #1B5E20
+skinparam actorBackgroundColor #FFF3E0
+skinparam actorBorderColor #E65100
+
+title Diagrama de Casos de Uso - Gerenciamento de Veterinários
+
+left to right direction
+
+' Atores
+actor "Administrador" as admin
+actor "Atendente" as atendente
+actor "Sistema" as sistema
+
+' Pacote do módulo
+package "Módulo de Veterinários" {
+    usecase "Cadastrar Veterinário" as UC1
+    usecase "Listar Veterinários" as UC2
+    usecase "Consultar Veterinário" as UC3
+    usecase "Atualizar Veterinário" as UC4
+    usecase "Deletar Veterinário" as UC5
+    usecase "Validar CRMV" as UC6
+    usecase "Validar Dados do Veterinário" as UC7
+    usecase "Verificar Disponibilidade" as UC8
+}
+
+' Relacionamentos com Administrador
+admin --> UC1
+admin --> UC4
+admin --> UC5
+
+' Relacionamentos com Atendente
+atendente --> UC2
+atendente --> UC3
+atendente --> UC8
+
+' Relacionamentos de inclusão (include)
+UC1 ..> UC6 : <<include>>
+UC1 ..> UC7 : <<include>>
+UC4 ..> UC7 : <<include>>
+
+' Relacionamentos de extensão (extend)
+UC2 ..> UC8 : <<extend>>
+
+' Relacionamento com Sistema
+sistema --> UC6
+sistema --> UC7
+
+note right of UC1
+  <b>Dados obrigatórios:</b>
+  - Nome completo
+  - Número do CRMV (único)
+  
+  <b>Dados opcionais:</b>
+  - Telefone
+  - Email
+end note
+
+note bottom of UC6
+  Valida formato e unicidade
+  do número de CRMV
+end note
+
+note bottom of UC5
+  Verifica se há agendamentos
+  associados antes de deletar
+end note
+
+@enduml
+

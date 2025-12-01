@@ -1,0 +1,405 @@
+@startuml Backend Classes - Impacta Pets
+
+' Configurações de estilo
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+' ============================================
+' PACKAGE: MODELS
+' ============================================
+package "models" #LightBlue {
+    
+    interface Pet {
+        +id: string
+        +name: string
+        +species: string
+        +breed: string
+        +age: number
+        +ownerName: string
+        +ownerPhone: string
+        +ownerEmail: string
+        +createdAt: Date
+        +updatedAt: Date
+    }
+    
+    class PetModel {
+        +id: string
+        +name: string
+        +species: string
+        +breed: string
+        +age: number
+        +ownerName: string
+        +ownerPhone: string
+        +ownerEmail: string
+        +createdAt: Date
+        +updatedAt: Date
+        --
+        +update(data: Partial<Pet>): void
+        +toJSON(): Pet
+        +{static} fromDatabase(data: any): PetModel
+    }
+    
+    interface Veterinarian {
+        +id: string
+        +name: string
+        +licenseNumber: string
+        +phone?: string
+        +email?: string
+        +createdAt: Date
+        +updatedAt: Date
+    }
+    
+    class VeterinarianModel {
+        +id: string
+        +name: string
+        +licenseNumber: string
+        +phone?: string
+        +email?: string
+        +createdAt: Date
+        +updatedAt: Date
+        --
+        +update(data: Partial<Veterinarian>): void
+        +toJSON(): Veterinarian
+        +{static} fromDatabase(data: any): VeterinarianModel
+    }
+    
+    interface Service {
+        +id: string
+        +name: string
+        +description?: string
+        +price: number
+        +createdAt: Date
+        +updatedAt: Date
+    }
+    
+    class ServiceModel {
+        +id: string
+        +name: string
+        +description?: string
+        +price: number
+        +createdAt: Date
+        +updatedAt: Date
+        --
+        +update(data: Partial<Service>): void
+        +toJSON(): Service
+        +{static} fromDatabase(data: any): ServiceModel
+    }
+    
+    interface Appointment {
+        +id: string
+        +petId: string
+        +serviceId: string
+        +veterinarianId: string
+        +appointmentDate: Date
+        +notes?: string
+        +createdAt: Date
+        +updatedAt: Date
+    }
+    
+    interface AppointmentWithDetails {
+        +id: string
+        +petId: string
+        +serviceId: string
+        +veterinarianId: string
+        +appointmentDate: Date
+        +notes?: string
+        +createdAt: Date
+        +updatedAt: Date
+        +petName?: string
+        +serviceName?: string
+        +veterinarianName?: string
+        +servicePrice?: number
+    }
+    
+    class AppointmentModel {
+        +id: string
+        +petId: string
+        +serviceId: string
+        +veterinarianId: string
+        +appointmentDate: Date
+        +notes?: string
+        +createdAt: Date
+        +updatedAt: Date
+        --
+        +update(data: Partial<Appointment>): void
+        +toJSON(): Appointment
+        +{static} fromDatabase(data: any): AppointmentModel
+    }
+    
+    PetModel ..|> Pet
+    VeterinarianModel ..|> Veterinarian
+    ServiceModel ..|> Service
+    AppointmentModel ..|> Appointment
+    AppointmentWithDetails --|> Appointment
+}
+
+' ============================================
+' PACKAGE: DTOs
+' ============================================
+package "dtos" #LightGreen {
+    
+    ' Pet DTOs
+    class CreatePetDTO {
+        +name: string
+        +species: string
+        +breed: string
+        +age: number
+        +ownerName: string
+        +ownerPhone: string
+        +ownerEmail: string
+    }
+    
+    class UpdatePetDTO {
+        +name?: string
+        +species?: string
+        +breed?: string
+        +age?: number
+        +ownerName?: string
+        +ownerPhone?: string
+        +ownerEmail?: string
+    }
+    
+    ' Veterinarian DTOs
+    class CreateVeterinarianDTO {
+        +name: string
+        +licenseNumber: string
+        +phone?: string
+        +email?: string
+    }
+    
+    class UpdateVeterinarianDTO {
+        +name?: string
+        +licenseNumber?: string
+        +phone?: string
+        +email?: string
+    }
+    
+    ' Service DTOs
+    class CreateServiceDTO {
+        +name: string
+        +description?: string
+        +price: number
+    }
+    
+    class UpdateServiceDTO {
+        +name?: string
+        +description?: string
+        +price?: number
+    }
+    
+    ' Appointment DTOs
+    class CreateAppointmentDTO {
+        +petId: string
+        +serviceId: string
+        +veterinarianId: string
+        +appointmentDate: Date | string
+        +notes?: string
+    }
+    
+    class UpdateAppointmentDTO {
+        +petId?: string
+        +serviceId?: string
+        +veterinarianId?: string
+        +appointmentDate?: Date | string
+        +notes?: string
+    }
+}
+
+' ============================================
+' PACKAGE: REPOSITORIES
+' ============================================
+package "repositories" #LightYellow {
+    
+    class PetRepository {
+        +findAll(): Promise<Pet[]>
+        +findById(id: string): Promise<Pet | null>
+        +create(createPetDTO: CreatePetDTO): Promise<Pet>
+        +update(id: string, updatePetDTO: UpdatePetDTO): Promise<Pet | null>
+        +delete(id: string): Promise<boolean>
+        +exists(id: string): Promise<boolean>
+        +count(): Promise<number>
+    }
+    
+    class VeterinarianRepository {
+        +findAll(): Promise<Veterinarian[]>
+        +findById(id: string): Promise<Veterinarian | null>
+        +create(dto: CreateVeterinarianDTO): Promise<Veterinarian>
+        +update(id: string, dto: UpdateVeterinarianDTO): Promise<Veterinarian | null>
+        +delete(id: string): Promise<boolean>
+        +exists(id: string): Promise<boolean>
+        +count(): Promise<number>
+    }
+    
+    class ServiceRepository {
+        +findAll(): Promise<Service[]>
+        +findById(id: string): Promise<Service | null>
+        +create(dto: CreateServiceDTO): Promise<Service>
+        +update(id: string, dto: UpdateServiceDTO): Promise<Service | null>
+        +delete(id: string): Promise<boolean>
+        +exists(id: string): Promise<boolean>
+        +count(): Promise<number>
+    }
+    
+    class AppointmentRepository {
+        +findAll(): Promise<AppointmentWithDetails[]>
+        +findById(id: string): Promise<AppointmentWithDetails | null>
+        +create(dto: CreateAppointmentDTO): Promise<AppointmentWithDetails>
+        +update(id: string, dto: UpdateAppointmentDTO): Promise<AppointmentWithDetails | null>
+        +delete(id: string): Promise<boolean>
+        +exists(id: string): Promise<boolean>
+        +count(): Promise<number>
+        +petExists(petId: string): Promise<boolean>
+        +serviceExists(serviceId: string): Promise<boolean>
+        +veterinarianExists(veterinarianId: string): Promise<boolean>
+    }
+    
+    PetRepository ..> Pet : uses
+    PetRepository ..> CreatePetDTO : uses
+    PetRepository ..> UpdatePetDTO : uses
+    
+    VeterinarianRepository ..> Veterinarian : uses
+    VeterinarianRepository ..> CreateVeterinarianDTO : uses
+    VeterinarianRepository ..> UpdateVeterinarianDTO : uses
+    
+    ServiceRepository ..> Service : uses
+    ServiceRepository ..> CreateServiceDTO : uses
+    ServiceRepository ..> UpdateServiceDTO : uses
+    
+    AppointmentRepository ..> AppointmentWithDetails : uses
+    AppointmentRepository ..> CreateAppointmentDTO : uses
+    AppointmentRepository ..> UpdateAppointmentDTO : uses
+}
+
+' ============================================
+' PACKAGE: CONTROLLERS
+' ============================================
+package "controllers" #LightCoral {
+    
+    class PetController {
+        -petRepository: PetRepository
+        --
+        +getAllPets(req, res): Promise<void>
+        +getPetById(req, res): Promise<void>
+        +createPet(req, res): Promise<void>
+        +updatePet(req, res): Promise<void>
+        +deletePet(req, res): Promise<void>
+    }
+    
+    class VeterinarianController {
+        -veterinarianRepository: VeterinarianRepository
+        --
+        +getAllVeterinarians(req, res): Promise<void>
+        +getVeterinarianById(req, res): Promise<void>
+        +createVeterinarian(req, res): Promise<void>
+        +updateVeterinarian(req, res): Promise<void>
+        +deleteVeterinarian(req, res): Promise<void>
+    }
+    
+    class ServiceController {
+        -serviceRepository: ServiceRepository
+        --
+        +getAllServices(req, res): Promise<void>
+        +getServiceById(req, res): Promise<void>
+        +createService(req, res): Promise<void>
+        +updateService(req, res): Promise<void>
+        +deleteService(req, res): Promise<void>
+    }
+    
+    class AppointmentController {
+        -appointmentRepository: AppointmentRepository
+        --
+        +getAllAppointments(req, res): Promise<void>
+        +getAppointmentById(req, res): Promise<void>
+        +createAppointment(req, res): Promise<void>
+        +updateAppointment(req, res): Promise<void>
+        +deleteAppointment(req, res): Promise<void>
+    }
+    
+    PetController o-- PetRepository
+    VeterinarianController o-- VeterinarianRepository
+    ServiceController o-- ServiceRepository
+    AppointmentController o-- AppointmentRepository
+}
+
+' ============================================
+' PACKAGE: MAPPERS
+' ============================================
+package "mappers" #Lavender {
+    
+    class BaseMapper {
+        +{static} toCamelCase(str: string): string
+        +{static} toSnakeCase(str: string): string
+        +{static} toCamelCaseObject<T>(obj: any): T
+        +{static} toSnakeCaseObject<T>(obj: any): T
+    }
+    
+    class PetMapper {
+        +{static} fromDatabase(dbRow: any): Pet
+        +{static} fromDatabaseArray(dbRows: any[]): Pet[]
+        +{static} toDatabaseCreate(dto: CreatePetDTO): any
+        +{static} toDatabaseUpdate(dto: UpdatePetDTO): any
+        +{static} toDatabase(pet: Pet): any
+    }
+    
+    class VeterinarianMapper {
+        +{static} fromDatabase(dbRow: any): Veterinarian
+        +{static} fromDatabaseArray(dbRows: any[]): Veterinarian[]
+        +{static} toDatabaseCreate(dto: CreateVeterinarianDTO): any
+        +{static} toDatabaseUpdate(dto: UpdateVeterinarianDTO): any
+        +{static} toDatabase(vet: Veterinarian): any
+    }
+    
+    class ServiceMapper {
+        +{static} fromDatabase(dbRow: any): Service
+        +{static} fromDatabaseArray(dbRows: any[]): Service[]
+        +{static} toDatabaseCreate(dto: CreateServiceDTO): any
+        +{static} toDatabaseUpdate(dto: UpdateServiceDTO): any
+        +{static} toDatabase(service: Service): any
+    }
+    
+    class AppointmentMapper {
+        +{static} fromDatabase(dbRow: any): Appointment
+        +{static} fromDatabaseWithDetails(dbRow: any): AppointmentWithDetails
+        +{static} fromDatabaseArray(dbRows: any[]): Appointment[]
+        +{static} fromDatabaseWithDetailsArray(dbRows: any[]): AppointmentWithDetails[]
+        +{static} toDatabaseCreate(dto: CreateAppointmentDTO): any
+        +{static} toDatabaseUpdate(dto: UpdateAppointmentDTO): any
+        +{static} toDatabase(appointment: Appointment): any
+    }
+    
+    PetMapper --|> BaseMapper
+    VeterinarianMapper --|> BaseMapper
+    ServiceMapper --|> BaseMapper
+    AppointmentMapper --|> BaseMapper
+    
+    PetMapper ..> Pet : uses
+    VeterinarianMapper ..> Veterinarian : uses
+    ServiceMapper ..> Service : uses
+    AppointmentMapper ..> Appointment : uses
+    AppointmentMapper ..> AppointmentWithDetails : uses
+}
+
+' ============================================
+' RELACIONAMENTOS ENTRE ENTIDADES
+' ============================================
+Appointment "many" --> "1" Pet : references
+Appointment "many" --> "1" Service : references
+Appointment "many" --> "1" Veterinarian : references
+
+note right of AppointmentRepository
+  Utiliza JOINs para popular
+  dados relacionados:
+  - Pet name
+  - Service name e price
+  - Veterinarian name
+end note
+
+note left of AppointmentController
+  Valida:
+  - IDs existentes
+  - Datas futuras
+  - Campos obrigatórios
+end note
+
+@enduml
